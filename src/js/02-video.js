@@ -1,8 +1,7 @@
-import playerVimeo from '@vimeo/player';
-console.log(Player);
+import Player from '@vimeo/player';
 
 const iframe = document.querySelector('iframe');
-const player = new playerVimeo(iframe);
+const player = new Player(iframe);
 console.log(player);
 
 let keceivedTime;
