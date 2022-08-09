@@ -1,19 +1,19 @@
+// const player = new Player('vimeo-player');
 import Player from '@vimeo/player';
-// import throttle from 'lodash.throttle';
+import throttle from 'lodash.throttle';
 
-const iframe = document.querySelector('#vimeo-player');
-const player = new Player(iframe);
-// console.log(player);
-// console.log(player);
-// let keceivedTime;
+const player = new Player('vimeo-player');
 
-player.on('timeupdate', onPlay);
+const CURRENT_TIME = 'videoplayer-current-time';
 
-const onPlay = function (ev) {
-  const currentTime = ev.seconds;
-  //   data.preventDefault();
-  localStorage.setItem('videoplayer-current-time', currentTime);
-};
+player.on(
+  'timeupdate',
+  throttle(function (data) {
+    localStorage.setItem(CURRENT_TIME, JSON.stringify(data.seconds));
+    console.log('timer work');
+  }, 1000)
+);
 
-const savedTime = localStorage.getItem('videoplayer-current-time');
-player.setCurrentTime(savedTime);
+if (localStorage.getItem(CURRENT_TIME)) {
+  player.setCurrentTime(JSON.parse(localStorage.getItem(CURRENT_TIME)));
+}
