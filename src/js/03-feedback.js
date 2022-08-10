@@ -1,5 +1,4 @@
 import throttle from 'lodash.throttle';
-console.log(throttle);
 
 const VALUT_KEY = 'feedback-form-state';
 
