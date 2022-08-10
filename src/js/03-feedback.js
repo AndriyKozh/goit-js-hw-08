@@ -20,14 +20,14 @@ function onFormSabmit(ev) {
   const saveDate = JSON.parse(localStorage.getItem(VALUT_KEY));
   console.log(saveDate);
 
-  ev.target.reset();
+  ev.currentTarget.reset();
   localStorage.removeItem(VALUT_KEY);
 }
 
 function onTextareaInput(ev) {
   const {
     elements: { email, message },
-  } = ev.target;
+  } = ev.currentTarget;
   const valueEl = {
     email: email.value,
     message: message.value,
