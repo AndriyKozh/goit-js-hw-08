@@ -3,8 +3,6 @@ console.log(throttle);
 
 const VALUT_KEY = 'feedback-form-state';
 
-const formData = {};
-
 const refs = {
   form: document.querySelector('.feedback-form'),
   textarea: document.querySelector('.feedback-form textarea'),
@@ -22,14 +20,14 @@ function onFormSabmit(ev) {
   const saveDate = JSON.parse(localStorage.getItem(VALUT_KEY));
   console.log(saveDate);
 
-  ev.currentTarget.reset();
+  ev.target.reset();
   localStorage.removeItem(VALUT_KEY);
 }
 
 function onTextareaInput(ev) {
   const {
     elements: { email, message },
-  } = ev.currentTarget;
+  } = ev.target;
   const valueEl = {
     email: email.value,
     message: message.value,
