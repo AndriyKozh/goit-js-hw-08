@@ -14,32 +14,36 @@ const refs = {
 populateTextArea();
 
 refs.form.addEventListener('submit', onFormSabmit);
-refs.form.addEventListener('input', onTextareaInput);
-
-refs.form.addEventListener('input', ev => {
-  formData[ev.target.name] = ev.target.value;
-
-  localStorage.setItem(VALUT_KEY, JSON.stringify(formData));
-});
+refs.form.addEventListener('input', throttle(onTextareaInput, 500));
 
 function onFormSabmit(ev) {
   ev.preventDefault();
+
+  const saveDate = JSON.parse(localStorage.getItem(VALUT_KEY));
+  console.log(saveDate);
 
   ev.currentTarget.reset();
   localStorage.removeItem(VALUT_KEY);
 }
 
 function onTextareaInput(ev) {
-  const message = ev.target.value;
+  const {
+    elements: { email, message },
+  } = ev.currentTarget;
+  const valueEl = {
+    email: email.value,
+    message: message.value,
+  };
 
-  localStorage.setItem(VALUT_KEY, message);
+  localStorage.setItem(VALUT_KEY, JSON.stringify(valueEl));
 }
 
 function populateTextArea() {
   const saveMessage = JSON.parse(localStorage.getItem(VALUT_KEY));
   if (saveMessage) {
-    refs.textarea.value = saveMessage.message;
-    refs.inputEl.value = saveMessage.email;
+    const { message, email } = saveMessage;
+    refs.textarea.value = message;
+    refs.inputEl.value = email;
     console.log(JSON.parse(localStorage.getItem(VALUT_KEY)));
   }
 }
